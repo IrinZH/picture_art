@@ -1,5 +1,5 @@
 function tabs() {
-	console.log('7');
+	
 
 }
 

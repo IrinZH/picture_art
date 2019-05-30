@@ -1,5 +1,5 @@
 function accordion() {
-  console.log('1');
+  
 
 
 }

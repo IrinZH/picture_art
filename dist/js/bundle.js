@@ -94,7 +94,7 @@
 /***/ (function(module, exports) {
 
 function accordion() {
-  console.log('1');
+  
 
 
 }
@@ -110,7 +110,7 @@ module.exports = accordion;
 /***/ (function(module, exports) {
 
 function burger() {
-  console.log('2');
+  
 
 }
 module.exports = burger;
@@ -125,7 +125,7 @@ module.exports = burger;
 /***/ (function(module, exports) {
 
 function calc() {
-  console.log('3');
+  
 
   
 }
@@ -142,7 +142,7 @@ module.exports = calc;
 
 function forms() {
 
-console.log('4');
+
 //Отправка формы //обязательно name нужен в html для отправки данных формы
 
 
@@ -160,8 +160,7 @@ module.exports = forms;
 /***/ (function(module, exports) {
 
 function modal() {
-	console.log('5');
-
+	
 }
 module.exports = modal;
 
@@ -175,10 +174,42 @@ module.exports = modal;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function slider() {
-	console.log('6');
 
+	function slider() {
+			let slideIndex = 2,
+      slides = document.querySelectorAll('.main-slider-item'),
+      intervalSlider;
+
+	showSlides(slideIndex);
+	
+  function showSlides(n) {
+    if (n > slides.length) {
+      slideIndex = 1;
+    }
+    if (n < 1) {
+      slideIndex = slides.length;
+    }
+    slides.forEach((item) => {
+    item.style.display = 'none';
+    slides[slideIndex - 1].style.display = 'block';
+    item.classList.add('animated', 'fadeInDown');
+        
+    if (slideIndex == 2) {
+      intervalSlider = "7000"; //вторая картинка будет медленней переключаться на другой слайд
+    }
+    if (slideIndex != 2) {
+    intervalSlider = "3000";
+    }
+  });
+  }
+
+  function plusSlides(n) {
+    showSlides(slideIndex += n);
+    // console.log(intervalSlider);
+  }
+  setInterval(() => plusSlides(1), intervalSlider);
 }
+
 module.exports = slider;
 
 /***/ }),
@@ -191,7 +222,7 @@ module.exports = slider;
 /***/ (function(module, exports) {
 
 function tabs() {
-	console.log('7');
+	
 
 }
 

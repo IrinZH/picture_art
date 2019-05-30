@@ -1,5 +1,5 @@
 function calc() {
-  console.log('3');
+  
 
   
 }
