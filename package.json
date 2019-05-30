@@ -1,0 +1,24 @@
+{
+  "name": "picture_art",
+  "version": "1.0.0",
+  "description": "Финальная работа по JS-7",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IrinZH/picture_art.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IrinZH/picture_art/issues"
+  },
+  "homepage": "https://github.com/IrinZH/picture_art#readme",
+  "devDependencies": {
+    "webpack": "^4.32.2",
+    "webpack-cli": "^3.3.2"
+  }
+}
