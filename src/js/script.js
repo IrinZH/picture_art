@@ -5,7 +5,8 @@ window.addEventListener('DOMContentLoaded', () => {
       calc = require('./parts/calc.js'),
       forms = require('./parts/forms.js'),
       modal = require('./parts/modal.js'),      
-      slider = require('./parts/slider.js'),
+      slider1 = require('./parts/slider1.js'),
+      slider2 = require('./parts/slider2.js'),
       tabs = require('./parts/tabs.js');
       
   accordion();
@@ -13,7 +14,8 @@ window.addEventListener('DOMContentLoaded', () => {
   calc();
   forms();
   modal();  
-  slider();
+  slider1();
+  slider2();
   tabs();
 	
 });

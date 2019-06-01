@@ -160,57 +160,158 @@ module.exports = forms;
 /***/ (function(module, exports) {
 
 function modal() {
-	
+
+    let popupConsultation = document.querySelector('.popup-consultation'),
+        popupDesign = document.querySelector('.popup-design');
+
+
+    const bindModal = (modalTarget, modalDisplay, overflowStatus) => {
+        modalTarget.style.display = modalDisplay;
+        document.body.style.overflow = overflowStatus;
+
+    };
+
+    document.body.addEventListener('click', event => {
+        let target = event.target;
+
+        if (target.classList.contains('button-consultation')) {
+            bindModal(popupConsultation, 'block', 'hidden');
+        }
+        if (target.classList.contains('popup-close') || target.classList.contains('popup-consultation')) {
+            bindModal(popupConsultation, 'none', '');
+        }
+
+        if (target.classList.contains('button-design')) {
+            bindModal(popupDesign, 'block', 'hidden');
+        }
+        if (target.classList.contains('popup-close') || target.classList.contains('popup-design')) {
+            bindModal(popupDesign, 'none', '');
+        }
+
+    });
+
+
+
 }
+
+
 module.exports = modal;
+
 
 
 /***/ }),
 
-/***/ "./src/js/parts/slider.js":
-/*!********************************!*\
-  !*** ./src/js/parts/slider.js ***!
-  \********************************/
+/***/ "./src/js/parts/slider1.js":
+/*!*********************************!*\
+  !*** ./src/js/parts/slider1.js ***!
+  \*********************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
 
-	function slider() {
-			let slideIndex = 2,
-      slides = document.querySelectorAll('.main-slider-item'),
-      intervalSlider;
+	function slider1() {
+		let slideIndex = 2,
+			slides = document.querySelectorAll('.main-slider-item'),
+			intervalSlider;
 
-	showSlides(slideIndex);
-	
-  function showSlides(n) {
-    if (n > slides.length) {
-      slideIndex = 1;
-    }
-    if (n < 1) {
-      slideIndex = slides.length;
-    }
-    slides.forEach((item) => {
-    item.style.display = 'none';
-    slides[slideIndex - 1].style.display = 'block';
-    item.classList.add('animated', 'fadeInDown');
-        
-    if (slideIndex == 2) {
-      intervalSlider = "7000"; //вторая картинка будет медленней переключаться на другой слайд
-    }
-    if (slideIndex != 2) {
-    intervalSlider = "3000";
-    }
-  });
-  }
+		showSlides(slideIndex);
 
-  function plusSlides(n) {
-    showSlides(slideIndex += n);
-    // console.log(intervalSlider);
-  }
-  setInterval(() => plusSlides(1), intervalSlider);
-}
+		function showSlides(n) {
+			if (n > slides.length) {
+				slideIndex = 1;
+			}
+			if (n < 1) {
+				slideIndex = slides.length;
+			}
+			slides.forEach((item) => {
+				item.style.display = 'none';
+				slides[slideIndex - 1].style.display = 'block';
+				item.classList.add('animated', 'fadeInDown');
 
-module.exports = slider;
+				if (slideIndex == 2) {
+					intervalSlider = "7000"; //вторая картинка будет медленней переключаться на другой слайд
+				}
+				if (slideIndex != 2) {
+					intervalSlider = "3000";
+				}
+			});
+		}
+
+		function plusSlides(n) {
+			showSlides(slideIndex += n);
+			// console.log(intervalSlider);
+		}
+		setInterval(() => plusSlides(1), intervalSlider);
+	}
+
+	module.exports = slider1;
+
+/***/ }),
+
+/***/ "./src/js/parts/slider2.js":
+/*!*********************************!*\
+  !*** ./src/js/parts/slider2.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+	function slider2() {
+		let slideIndex = 1,
+			slides = document.querySelectorAll('.feedback-slider-item'),
+			prev = document.querySelector('.main-prev-btn'),
+			next = document.querySelector('.main-next-btn');
+
+		showSlides(slideIndex);
+
+		function showSlides(n) {
+			if (n > slides.length) {
+				slideIndex = 1;
+			}
+			if (n < 1) {
+				slideIndex = slides.length;
+			}
+			slides.forEach((item) => item.style.display = 'none');
+			slides[slideIndex - 1].style.display = 'block';
+			slides[slideIndex - 1].classList.add('animated', 'fadeInRight');
+		}
+
+		function plusSlides(n) {
+			showSlides(slideIndex += n);
+		}
+
+		let timer = setInterval(() => {
+			plusSlides(1);
+		}, 7000);
+
+		prev.addEventListener('mouseout', () => {
+			timer = setInterval(() => {
+				plusSlides(1);
+			}, 7000);
+		});
+		next.addEventListener('mouseout', () => {
+			timer = setInterval(() => {
+				plusSlides(1);
+			}, 7000);
+		});
+		prev.addEventListener('mouseover', () => { //прокрутку останавливаем при наведении на стрелки слайдера
+			clearInterval(timer);
+		});
+		next.addEventListener('mouseover', () => {
+			clearInterval(timer);
+		});
+		prev.addEventListener('click', () => {
+			plusSlides(-1);
+			slides[slideIndex - 1].classList.remove('fadeInLeft');
+		});
+
+		next.addEventListener('click', () => {
+			plusSlides(1);
+			slides[slideIndex - 1].classList.remove('fadeInRight');
+			slides[slideIndex - 1].classList.add('fadeInLeft');
+		});
+	}
+	module.exports = slider2;
 
 /***/ }),
 
@@ -244,7 +345,8 @@ window.addEventListener('DOMContentLoaded', () => {
       calc = __webpack_require__(/*! ./parts/calc.js */ "./src/js/parts/calc.js"),
       forms = __webpack_require__(/*! ./parts/forms.js */ "./src/js/parts/forms.js"),
       modal = __webpack_require__(/*! ./parts/modal.js */ "./src/js/parts/modal.js"),      
-      slider = __webpack_require__(/*! ./parts/slider.js */ "./src/js/parts/slider.js"),
+      slider1 = __webpack_require__(/*! ./parts/slider1.js */ "./src/js/parts/slider1.js"),
+      slider2 = __webpack_require__(/*! ./parts/slider2.js */ "./src/js/parts/slider2.js"),
       tabs = __webpack_require__(/*! ./parts/tabs.js */ "./src/js/parts/tabs.js");
       
   accordion();
@@ -252,7 +354,8 @@ window.addEventListener('DOMContentLoaded', () => {
   calc();
   forms();
   modal();  
-  slider();
+  slider1();
+  slider2();
   tabs();
 	
 });
