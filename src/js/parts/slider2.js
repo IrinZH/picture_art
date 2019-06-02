@@ -15,8 +15,8 @@
 				slideIndex = slides.length;
 			}
 			slides.forEach((item) => item.style.display = 'none');
-			slides[slideIndex - 1].style.display = 'block';
-			slides[slideIndex - 1].classList.add('animated', 'fadeInRight');
+			slides[slideIndex - 1].style.display = 'flex';
+			slides[slideIndex - 1].classList.add('animated', 'bounceInRight');
 		}
 
 		function plusSlides(n) {
@@ -45,13 +45,13 @@
 		});
 		prev.addEventListener('click', () => {
 			plusSlides(-1);
-			slides[slideIndex - 1].classList.remove('fadeInLeft');
+			slides[slideIndex - 1].classList.remove('bounceInLeft');
 		});
 
 		next.addEventListener('click', () => {
 			plusSlides(1);
-			slides[slideIndex - 1].classList.remove('fadeInRight');
-			slides[slideIndex - 1].classList.add('fadeInLeft');
+			slides[slideIndex - 1].classList.remove('bounceInRight');
+			slides[slideIndex - 1].classList.add('bounceInLeft');
 		});
 	}
 	module.exports = slider2;

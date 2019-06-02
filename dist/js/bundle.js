@@ -94,10 +94,46 @@
 /***/ (function(module, exports) {
 
 function accordion() {
-  
+
+let accordBlock = document.querySelectorAll('.accordion-block'),
+        accordHeading = document.querySelectorAll('.accordion-heading'),
+        accordIndex = 1;
 
 
+    function accordHide() {
+        accordBlock.forEach((elem) => {
+            elem.style.display = 'none';
+            elem.classList.remove('ui-accordion-content-active', 'fadeInUp', 'animated');
+        }); 
+    }
+    accordHide();
+
+    function accordShow(n) {
+        accordHide();
+        accordBlock[n].style.display = 'block';
+        accordBlock[n].classList.add('ui-accordion-content-active', 'fadeInUp', 'animated');
+    }
+
+    function changeHeading() {
+        accordHeading.forEach((elem) => {
+            if (!(elem.classList.contains('ui-accordion-header-active'))) {
+            } else {
+                elem.classList.remove('ui-accordion-header-active');
+            }
+        });
+    }
+    
+    accordHeading.forEach((elem, i) => {
+        elem.addEventListener('click', () => {
+            accordIndex = i;
+            accordShow(accordIndex);
+            changeHeading();
+            elem.classList.add('ui-accordion-header-active');
+        });
+    });
 }
+
+
 module.exports = accordion;
 
 /***/ }),
@@ -110,8 +146,23 @@ module.exports = accordion;
 /***/ (function(module, exports) {
 
 function burger() {
-  
+  let burger = document.querySelector('.burger'),
+      burgerMenu = document.querySelector('.burger-menu');
 
+  burger.addEventListener('click', () => {
+    // console.log(document.documentElement.clientWidth); //ширина экрана, меняется
+    // console.log(window.screen.width); //ширина экрана устройства, не меняется
+    if (document.documentElement.clientWidth <= 976) {
+
+      if (burgerMenu.classList.contains("burger-menu_active") == true) {
+        burgerMenu.classList.remove("burger-menu_active");
+        burgerMenu.style.display = 'none';
+      } else {
+        burgerMenu.classList.add("burger-menu_active");
+        burgerMenu.style.display = 'block';
+      }
+    }
+  });
 }
 module.exports = burger;
 
@@ -133,6 +184,62 @@ module.exports = calc;
 
 /***/ }),
 
+/***/ "./src/js/parts/filter.js":
+/*!********************************!*\
+  !*** ./src/js/parts/filter.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function filtr() {
+	let portfolioBlock = document.querySelectorAll('.portfolio-block'),
+      portfolioMenu = document.querySelector('.portfolio-menu'),
+      portfolioMenuLink = document.querySelectorAll('.portfolio-menu li'),
+      portfolioNo = document.querySelector('.portfolio-no');
+
+  portfolioMenu.addEventListener('click', (e) => {
+    let target = e.target;
+
+    for (let i = 0; i < portfolioMenuLink.length; i++) {
+      portfolioMenuLink[i].classList.remove('active');
+
+      if (target && target == portfolioMenuLink[0]) {
+        portfolioMenuLink[0].classList.add('active');
+        portfolioBlock.forEach((box) => {
+          box.classList.remove('hide');
+          box.classList.add('show');
+        });
+      } else if (target && target == portfolioMenuLink[i] && i != 0) {
+        portfolioMenuLink[i].classList.add('active');
+        let reg = portfolioMenuLink[i].className,
+            count = 0;
+        reg = reg.replace('active', '');
+
+        for (let j = 0; j < portfolioBlock.length; j++) {
+          portfolioBlock[j].classList.add('show');
+          let str = String(portfolioBlock[j].className);
+
+          if (portfolioBlock[j] && str.search(reg) == -1) {
+            portfolioBlock[j].classList.add('hide');
+            portfolioBlock[j].classList.remove('show');
+            count = count + 1;
+            if (count == portfolioBlock.length) {
+              portfolioNo.classList.add('show');
+            } else {
+              portfolioNo.classList.remove('show');
+            }
+          }
+        }
+      }
+    }
+  });
+
+}
+
+module.exports = filtr;
+
+/***/ }),
+
 /***/ "./src/js/parts/forms.js":
 /*!*******************************!*\
   !*** ./src/js/parts/forms.js ***!
@@ -149,6 +256,41 @@ function forms() {
 }
 module.exports = forms;
 
+
+/***/ }),
+
+/***/ "./src/js/parts/hover.js":
+/*!*******************************!*\
+  !*** ./src/js/parts/hover.js ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function hover() {
+  let block = document.querySelectorAll('.sizes-block'),
+  picture = document.getElementsByClassName('image'),
+  size = document.querySelectorAll('.size'),
+  startPrice = document.querySelectorAll('.starting-price'),
+  finalPrice = document.querySelectorAll('.final-price');
+
+for (let i = 0; i < block.length; i++) {
+  block[i].addEventListener('mouseover', function() {
+      picture[i].setAttribute('src', `img/sizes-${i+1}-1.png`);
+      size[i].style.display = 'none';
+      startPrice[i].style.display = 'none';
+      finalPrice[i].style.display = 'none';
+      
+  });
+  block[i].addEventListener('mouseout', function() {
+      picture[i].setAttribute('src', `img/sizes-${i+1}.png`);
+      size[i].style.display = 'block';
+      startPrice[i].style.display = 'block';
+      finalPrice[i].style.display = 'block'; 
+  });
+}
+
+} 
+module.exports = hover;
 
 /***/ }),
 
@@ -190,6 +332,7 @@ function modal() {
 
     });
 
+    
 
 
 }
@@ -272,8 +415,8 @@ module.exports = modal;
 				slideIndex = slides.length;
 			}
 			slides.forEach((item) => item.style.display = 'none');
-			slides[slideIndex - 1].style.display = 'block';
-			slides[slideIndex - 1].classList.add('animated', 'fadeInRight');
+			slides[slideIndex - 1].style.display = 'flex';
+			slides[slideIndex - 1].classList.add('animated', 'bounceInRight');
 		}
 
 		function plusSlides(n) {
@@ -302,32 +445,16 @@ module.exports = modal;
 		});
 		prev.addEventListener('click', () => {
 			plusSlides(-1);
-			slides[slideIndex - 1].classList.remove('fadeInLeft');
+			slides[slideIndex - 1].classList.remove('bounceInLeft');
 		});
 
 		next.addEventListener('click', () => {
 			plusSlides(1);
-			slides[slideIndex - 1].classList.remove('fadeInRight');
-			slides[slideIndex - 1].classList.add('fadeInLeft');
+			slides[slideIndex - 1].classList.remove('bounceInRight');
+			slides[slideIndex - 1].classList.add('bounceInLeft');
 		});
 	}
 	module.exports = slider2;
-
-/***/ }),
-
-/***/ "./src/js/parts/tabs.js":
-/*!******************************!*\
-  !*** ./src/js/parts/tabs.js ***!
-  \******************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function tabs() {
-	
-
-}
-
-module.exports = tabs;
 
 /***/ }),
 
@@ -343,20 +470,24 @@ window.addEventListener('DOMContentLoaded', () => {
   let accordion = __webpack_require__(/*! ./parts/accordion.js */ "./src/js/parts/accordion.js"),
       burger = __webpack_require__(/*! ./parts/burger.js */ "./src/js/parts/burger.js"),
       calc = __webpack_require__(/*! ./parts/calc.js */ "./src/js/parts/calc.js"),
+      filter = __webpack_require__(/*! ./parts/filter.js */ "./src/js/parts/filter.js"),
       forms = __webpack_require__(/*! ./parts/forms.js */ "./src/js/parts/forms.js"),
+      hover = __webpack_require__(/*! ./parts/hover.js */ "./src/js/parts/hover.js"),
       modal = __webpack_require__(/*! ./parts/modal.js */ "./src/js/parts/modal.js"),      
       slider1 = __webpack_require__(/*! ./parts/slider1.js */ "./src/js/parts/slider1.js"),
-      slider2 = __webpack_require__(/*! ./parts/slider2.js */ "./src/js/parts/slider2.js"),
-      tabs = __webpack_require__(/*! ./parts/tabs.js */ "./src/js/parts/tabs.js");
+      slider2 = __webpack_require__(/*! ./parts/slider2.js */ "./src/js/parts/slider2.js");
+
       
   accordion();
   burger();
   calc();
+  filter();
   forms();
+  hover();
   modal();  
   slider1();
   slider2();
-  tabs();
+  
 	
 });
 

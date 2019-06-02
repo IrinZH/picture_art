@@ -3,20 +3,24 @@ window.addEventListener('DOMContentLoaded', () => {
   let accordion = require('./parts/accordion.js'),
       burger = require('./parts/burger.js'),
       calc = require('./parts/calc.js'),
+      filter = require('./parts/filter.js'),
       forms = require('./parts/forms.js'),
+      hover = require('./parts/hover.js'),
       modal = require('./parts/modal.js'),      
       slider1 = require('./parts/slider1.js'),
-      slider2 = require('./parts/slider2.js'),
-      tabs = require('./parts/tabs.js');
+      slider2 = require('./parts/slider2.js');
+
       
   accordion();
   burger();
   calc();
+  filter();
   forms();
+  hover();
   modal();  
   slider1();
   slider2();
-  tabs();
+  
 	
 });
 
