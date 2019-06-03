@@ -138,6 +138,29 @@ module.exports = accordion;
 
 /***/ }),
 
+/***/ "./src/js/parts/blocks.js":
+/*!********************************!*\
+  !*** ./src/js/parts/blocks.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function blocks() {
+  let btn = document.getElementsByClassName('button-transparent')[0],
+        element = document.querySelectorAll('.styles-2');
+
+    btn.addEventListener('click', () => {
+        element.forEach(function(item) {
+            item.classList.remove('hidden-lg', 'hidden-md', 'hidden-sm', 'hidden-xs', 'styles-2');
+            item.classList.add('col-sm-3', 'col-sm-offset-0', 'col-xs-10', 'col-xs-offset-1');  
+        });
+        btn.style.display = 'none';
+    });
+}
+module.exports = blocks;
+
+/***/ }),
+
 /***/ "./src/js/parts/burger.js":
 /*!********************************!*\
   !*** ./src/js/parts/burger.js ***!
@@ -176,9 +199,71 @@ module.exports = burger;
 /***/ (function(module, exports) {
 
 function calc() {
-  
+  let pictureSize = document.getElementById("size"),
+    pictureMaterial = document.getElementById("material"),
+    options = document.getElementById("options"),
+    promocod = document.getElementsByClassName("promocode")[0],
+    calcPrice = document.getElementsByClassName("calc-price")[0];
 
-  
+  mapping = {
+    "40x50": 700,
+    "50x70": 900,
+    "70x70": 1300,
+    "70x100": 1500,
+    "Холст из волокна": 1.8,
+    "Льняной холст": 2.4,
+    "Холст из натурального хлопка": 2.8,
+    "Покрытие арт-гелем": 700,
+    "Экспресс-изготовление": 1500,
+    "Доставка готовых работ": 500
+  };
+
+  function toCount(promo) {
+    let a;
+    if (options.value == "Дополнительные услуги") a = 0;
+    else a = mapping[options.value];
+    if (promo) {
+      return 0.7 * (mapping[pictureSize.value] * mapping[pictureMaterial.value]) + a + " рублей";
+    } else {
+      return mapping[pictureSize.value] * mapping[pictureMaterial.value] + a + " рублей";
+    }
+  };
+
+  pictureSize.addEventListener('change', () => {
+    if (pictureSize.value != "Выберите размер картины" && pictureMaterial.value != "Выберите материал картины") {
+      
+      if (promocod.value == "IWANTPOPART")
+        calcPrice.textContent = toCount(true);
+      else {
+        calcPrice.textContent = toCount(false);
+      }
+    } else calcPrice.textContent = "Для расчета нужно выбрать размер картины и материал картины";
+  });
+
+  pictureMaterial.addEventListener('change', () => {
+    if (pictureSize.value != "Выберите размер картины" && pictureMaterial.value != "Выберите материал картины") {
+      if (promocod.value == "IWANTPOPART")
+        calcPrice.textContent = toCount(true);
+      else calcPrice.textContent = toCount(false);
+    } else calcPrice.textContent = "Для расчета нужно выбрать размер картины и материал картины";
+  });
+
+  options.addEventListener('change', () => {
+    if (pictureSize.value != "Выберите размер картины" && pictureMaterial.value != "Выберите материал картины") {
+      if (promocod.value == "IWANTPOPART")
+        calcPrice.textContent = toCount(true);
+      else calcPrice.textContent = toCount(false);
+    } else calcPrice.textContent = "Для расчета нужно выбрать размер картины и материал картины";
+  });
+
+  promocod.addEventListener('change', () => {
+    if (pictureSize.value != "Выберите размер картины" && pictureMaterial.value != "Выберите материал картины") {
+      if (promocod.value == "IWANTPOPART")
+        calcPrice.textContent = toCount(true);
+      else calcPrice.textContent = toCount(false);
+    } else calcPrice.textContent = "Для расчета нужно выбрать размер картины и материал картины";
+  });
+    
 }
 module.exports = calc;
 
@@ -248,14 +333,25 @@ module.exports = filtr;
 /***/ (function(module, exports) {
 
 function forms() {
-
-
-//Отправка формы //обязательно name нужен в html для отправки данных формы
-
-
+    let message = {
+        loading: 'Идет отправка...',
+        success: 'Отправлено',
+        failure: 'Что-то пошло не так'
+      };
+      let formDesign = document.querySelectorAll('.popup-content form')[1],
+          formCons = document.querySelectorAll('.popup-content form')[0],
+          textarea = document.getElementsByTagName('textarea'),
+          input = document.getElementsByTagName('input'),
+          statusMessage = document.createElement('div'),
+          popupContentCons = document.querySelector('.popup-consultation .popup-content'),
+          popupContentDesign = document.querySelector('.popup-design .popup-content'),
+          popupCloseCons = document.querySelector('.popup-consultation .popup-close'),
+          popupCloseDesign = document.querySelector('.popup-design .popup-close');
+    
 }
-module.exports = forms;
 
+
+module.exports = forms;
 
 /***/ }),
 
@@ -415,8 +511,8 @@ module.exports = modal;
 				slideIndex = slides.length;
 			}
 			slides.forEach((item) => item.style.display = 'none');
-			slides[slideIndex - 1].style.display = 'flex';
-			slides[slideIndex - 1].classList.add('animated', 'bounceInRight');
+			slides[slideIndex - 1].style.display = 'block';
+			slides[slideIndex - 1].classList.add('animated', 'zoomInRight');
 		}
 
 		function plusSlides(n) {
@@ -445,13 +541,17 @@ module.exports = modal;
 		});
 		prev.addEventListener('click', () => {
 			plusSlides(-1);
-			slides[slideIndex - 1].classList.remove('bounceInLeft');
+			// slides[slideIndex - 1].classList.add('zoomInRight');
+			slides[slideIndex-1].classList.remove('zoomInLeft');
+			slides[slideIndex - 1].classList.add('zoomInRight');
 		});
 
 		next.addEventListener('click', () => {
 			plusSlides(1);
-			slides[slideIndex - 1].classList.remove('bounceInRight');
-			slides[slideIndex - 1].classList.add('bounceInLeft');
+			slides[slideIndex - 1].classList.remove('zoomInRight');
+			slides[slideIndex - 1].classList.add('zoomInLeft');
+			
+
 		});
 	}
 	module.exports = slider2;
@@ -469,22 +569,24 @@ window.addEventListener('DOMContentLoaded', () => {
   'use strict';
   let accordion = __webpack_require__(/*! ./parts/accordion.js */ "./src/js/parts/accordion.js"),
       burger = __webpack_require__(/*! ./parts/burger.js */ "./src/js/parts/burger.js"),
+      blocks = __webpack_require__(/*! ./parts/blocks.js */ "./src/js/parts/blocks.js"),
       calc = __webpack_require__(/*! ./parts/calc.js */ "./src/js/parts/calc.js"),
       filter = __webpack_require__(/*! ./parts/filter.js */ "./src/js/parts/filter.js"),
       forms = __webpack_require__(/*! ./parts/forms.js */ "./src/js/parts/forms.js"),
       hover = __webpack_require__(/*! ./parts/hover.js */ "./src/js/parts/hover.js"),
-      modal = __webpack_require__(/*! ./parts/modal.js */ "./src/js/parts/modal.js"),      
+      modal = __webpack_require__(/*! ./parts/modal.js */ "./src/js/parts/modal.js"),  
       slider1 = __webpack_require__(/*! ./parts/slider1.js */ "./src/js/parts/slider1.js"),
       slider2 = __webpack_require__(/*! ./parts/slider2.js */ "./src/js/parts/slider2.js");
 
       
   accordion();
   burger();
+  blocks();
   calc();
   filter();
   forms();
   hover();
-  modal();  
+  modal();
   slider1();
   slider2();
   
