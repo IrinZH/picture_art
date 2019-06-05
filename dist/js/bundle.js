@@ -337,28 +337,20 @@ function forms() {
     // валидация инпута телефона, инпутов имя и комментария
     document.body.addEventListener("input", event => {
         if (event.target.getAttribute("type") === "tel") {
-            console.log('телефон');
             event.target.value = "+" + event.target.value.replace(/[^0-9]/g, "").slice(0, 11);
             if (event.target.value.length == 1) {
                 event.target.value = "";
             }
-        } /*
-        if (event.target.getElementsByClassName("name") || event.target.getElementsByTagName("textarea") || (event.target.getElementsByClassName("input-text"))) {
-            console.log('имя');
-            event.target.value = event.target.value.replace(/[a-zA-Z]/, ""); //запрет латинских букв
-        } */
+        }
         if (event.target.getAttribute("type") === "email") {
-            event.target.value = event.target.value.replace(/[а-яА-Я]/, ""); 
-        }
-        else {
+            event.target.value = event.target.value.replace(/[а-яА-Я]/, "");
+        } else {
             if (event.target.getElementsByClassName("name") || event.target.getElementsByTagName("textarea") || (event.target.getElementsByClassName("input-text"))) {
-                console.log('имя');
                 event.target.value = event.target.value.replace(/[a-zA-Z]/, ""); //запрет латинских букв
-            } 
+            }
         }
-    
-        
-    });        
+
+    });
 
     let message = {
             loadind: 'Загрузка...',
@@ -373,7 +365,9 @@ function forms() {
         let formSend = (formName) => {
             formName.appendChild(statusMessage);
             let input = formName.querySelectorAll('input'),
+                textArea = document.querySelectorAll('textarea'),
                 content = formName.querySelector('.form-content');
+                
             let request = new XMLHttpRequest();
             request.open('POST', 'server.php');
             request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
@@ -397,7 +391,7 @@ function forms() {
                         statusMessage.innerHTML = message.success;	
                         setTimeout(() =>{
                             formName.removeChild(statusMessage);
-                            content.style.display = 'flex';
+                            content.style.display = 'block';
                         }, 3000);			
                     } else {
                         statusMessage.innerHTML = message.success;
@@ -419,6 +413,11 @@ function forms() {
     
             for (let i = 0; i < input.length; i++) {
                 input[i].value = '';
+                
+            }
+            for (let i = 0; i < textArea.length; i++) { //очищаем комментарий
+                textArea[i].value = '';
+                
             }
         };
     

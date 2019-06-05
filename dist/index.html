@@ -663,9 +663,11 @@
 				<h4>Остались вопросы? Закажите обратный звонок</h4>
 				<div class=main-form>
 					<form class=form action=mailer/smart.php method=POST>
+						<div class="form-content">
 						<input class="name" type=text name=name placeholder="Ваше имя" required>
 						<input class='tel' type=tel name=phone placeholder="Ваш телефон" required>
 						<button class="button button-order" onclick="yaCounter46630539.reachGoal('btn-consultation'); return true;">Получить консультацию</button>
+						</div>
 					</form>
 				</div>
 			</div>
@@ -686,6 +688,7 @@
 			<div class=popup-content>
 				<button class=popup-close>&times;</button>
 				<form action= method=POST enctype=multipart/form-data>
+					<div class="form-content">
 					<h4>Заказать дизайн портрета</h4>
 					<div class=file_uploa>
 						<button type=button>Загрузить фотографию</button>
@@ -701,6 +704,7 @@
 							<button class="button button-order">Отправить дизайнеру</button>
 						</div>
 					</div>
+					</div>
 				</form>
 			</div>
 		</div>
@@ -711,6 +715,7 @@
 	<link rel=stylesheet href=css/main.css>
 	
 	<!-- <script src="../src/js/script.js"></script> -->
-	<script src="../dist/js/bundle.js"></script>
+	<!-- <script src="../dist/js/bundle.js"></script> -->
+	<script src="js/bundle.js"></script>
 </body>
 </html>

@@ -30,7 +30,9 @@ function forms() {
         let formSend = (formName) => {
             formName.appendChild(statusMessage);
             let input = formName.querySelectorAll('input'),
+                textArea = document.querySelectorAll('textarea'),
                 content = formName.querySelector('.form-content');
+                
             let request = new XMLHttpRequest();
             request.open('POST', 'server.php');
             request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
@@ -54,7 +56,7 @@ function forms() {
                         statusMessage.innerHTML = message.success;	
                         setTimeout(() =>{
                             formName.removeChild(statusMessage);
-                            content.style.display = 'flex';
+                            content.style.display = 'block';
                         }, 3000);			
                     } else {
                         statusMessage.innerHTML = message.success;
@@ -76,6 +78,11 @@ function forms() {
     
             for (let i = 0; i < input.length; i++) {
                 input[i].value = '';
+                
+            }
+            for (let i = 0; i < textArea.length; i++) { //очищаем комментарий
+                textArea[i].value = '';
+                
             }
         };
     
