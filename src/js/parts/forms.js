@@ -2,28 +2,20 @@ function forms() {
     // валидация инпута телефона, инпутов имя и комментария
     document.body.addEventListener("input", event => {
         if (event.target.getAttribute("type") === "tel") {
-            console.log('телефон');
             event.target.value = "+" + event.target.value.replace(/[^0-9]/g, "").slice(0, 11);
             if (event.target.value.length == 1) {
                 event.target.value = "";
             }
-        } /*
-        if (event.target.getElementsByClassName("name") || event.target.getElementsByTagName("textarea") || (event.target.getElementsByClassName("input-text"))) {
-            console.log('имя');
-            event.target.value = event.target.value.replace(/[a-zA-Z]/, ""); //запрет латинских букв
-        } */
+        }
         if (event.target.getAttribute("type") === "email") {
-            event.target.value = event.target.value.replace(/[а-яА-Я]/, ""); 
-        }
-        else {
+            event.target.value = event.target.value.replace(/[а-яА-Я]/, "");
+        } else {
             if (event.target.getElementsByClassName("name") || event.target.getElementsByTagName("textarea") || (event.target.getElementsByClassName("input-text"))) {
-                console.log('имя');
                 event.target.value = event.target.value.replace(/[a-zA-Z]/, ""); //запрет латинских букв
-            } 
+            }
         }
-    
-        
-    });        
+
+    });
 
     let message = {
             loadind: 'Загрузка...',
