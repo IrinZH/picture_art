@@ -334,7 +334,7 @@ module.exports = filtr;
 /***/ (function(module, exports) {
 
 function forms() {
-    /* 
+     
     // валидация инпута телефона, инпутов имя и комментария
     document.body.addEventListener("input", event => {
         if (event.target.getAttribute("type") === "tel") {
@@ -424,7 +424,7 @@ function forms() {
                 statusMessage.innerHTML = "";
             }, 3000);
             
-        }); */
+        });
 }
 
 
