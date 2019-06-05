@@ -1,68 +1,68 @@
 function calc() {
-  let pictureSize = document.getElementById("size"),
-    pictureMaterial = document.getElementById("material"),
-    options = document.getElementById("options"),
-    promocod = document.getElementsByClassName("promocode")[0],
-    calcPrice = document.getElementsByClassName("calc-price")[0];
-
-  mapping = {
-    "40x50": 700,
-    "50x70": 900,
-    "70x70": 1300,
-    "70x100": 1500,
-    "Холст из волокна": 1.8,
-    "Льняной холст": 2.4,
-    "Холст из натурального хлопка": 2.8,
-    "Покрытие арт-гелем": 700,
-    "Экспресс-изготовление": 1500,
-    "Доставка готовых работ": 500
-  };
-
-  function toCount(promo) {
-    let a;
-    if (options.value == "Дополнительные услуги") a = 0;
-    else a = mapping[options.value];
-    if (promo) {
-      return 0.7 * (mapping[pictureSize.value] * mapping[pictureMaterial.value]) + a + " рублей";
-    } else {
-      return mapping[pictureSize.value] * mapping[pictureMaterial.value] + a + " рублей";
-    }
-  };
-
-  pictureSize.addEventListener('change', () => {
-    if (pictureSize.value != "Выберите размер картины" && pictureMaterial.value != "Выберите материал картины") {
-      
-      if (promocod.value == "IWANTPOPART")
-        calcPrice.textContent = toCount(true);
-      else {
-        calcPrice.textContent = toCount(false);
-      }
-    } else calcPrice.textContent = "Для расчета нужно выбрать размер картины и материал картины";
-  });
-
-  pictureMaterial.addEventListener('change', () => {
-    if (pictureSize.value != "Выберите размер картины" && pictureMaterial.value != "Выберите материал картины") {
-      if (promocod.value == "IWANTPOPART")
-        calcPrice.textContent = toCount(true);
-      else calcPrice.textContent = toCount(false);
-    } else calcPrice.textContent = "Для расчета нужно выбрать размер картины и материал картины";
-  });
-
-  options.addEventListener('change', () => {
-    if (pictureSize.value != "Выберите размер картины" && pictureMaterial.value != "Выберите материал картины") {
-      if (promocod.value == "IWANTPOPART")
-        calcPrice.textContent = toCount(true);
-      else calcPrice.textContent = toCount(false);
-    } else calcPrice.textContent = "Для расчета нужно выбрать размер картины и материал картины";
-  });
-
-  promocod.addEventListener('change', () => {
-    if (pictureSize.value != "Выберите размер картины" && pictureMaterial.value != "Выберите материал картины") {
-      if (promocod.value == "IWANTPOPART")
-        calcPrice.textContent = toCount(true);
-      else calcPrice.textContent = toCount(false);
-    } else calcPrice.textContent = "Для расчета нужно выбрать размер картины и материал картины";
-  });
+  
+ let calc = document.querySelector('.calc'),
+		size = document.querySelector('#size'),
+		material = document.querySelector('#material'),
+		options = document.querySelector('#options'),
+		promocode = document.querySelector('.promocode'),
+    price = document.querySelector('.calc-price');
     
+  const calcPrice = function () {
+
+    if (size.options.selectedIndex > 0 && material.options.selectedIndex > 0) {
+			let total = +size.options[size.selectedIndex].value * +material.options[material.selectedIndex].value;
+			if (options.options.selectedIndex > 0) {
+				total += +options[options.selectedIndex].value;
+			}
+			if (promocode.value.trim() == 'IWANTPOPART') {
+				total = +Math.round(total * 0.7);
+			}
+			price.innerHTML = total + 'руб.';
+		} else {
+			price.innerHTML = 'Для расчета нужно выбрать размер картины и материал картины';
+		}
+  };
+
+	calc.addEventListener('change', (e) => {
+		let target = e.target;
+
+		if (target.tagName == 'SELECT' || target.tagName == 'INPUT') {
+      calcPrice();
+    }
+
+  });
+
+
+  
+
+/* let calc = document.querySelector('.calc'),
+		size = document.querySelector('#size'),
+		material = document.querySelector('#material'),
+		options = document.querySelector('#options'),
+		promocode = document.querySelector('.promocode'),
+		price = document.querySelector('.calc-price');
+
+
+	const priceCalc = function () {
+		if (size.options.selectedIndex > 0 && material.options.selectedIndex > 0) {
+			let total = +size.options[size.selectedIndex].value * +material.options[material.selectedIndex].value;
+			if (options.options.selectedIndex > 0) {
+				total += +options[options.selectedIndex].value;
+			}
+			if (promocode.value == 'IWANTPOPART') {
+				total *= 0.7;
+			}
+			price.innerHTML = total + 'р';
+		} else {
+			price.innerHTML = 'Для расчета нужно выбрать размер картины и материал картины';
+		}
+	};
+
+	calc.addEventListener('change', (e) => {
+		let target = e.target;
+
+		if (target.tagName == 'SELECT' || target.tagName == 'INPUT') priceCalc();
+	}); */
 }
+
 module.exports = calc;
