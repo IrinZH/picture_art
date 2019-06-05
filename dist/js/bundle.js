@@ -354,7 +354,7 @@ function forms() {
 
     let message = {
             loadind: 'Загрузка...',
-            success: 'Спасибо!',
+            success: 'Спасибо, скоро мы свяжемся с Вами!',
             failure: 'Что-то пошло не так'
         };
     
@@ -389,10 +389,7 @@ function forms() {
                     if (formName.classList.contains('modal-form')) {
                         content.style.display = 'none';
                         statusMessage.innerHTML = message.success;	
-                        setTimeout(() =>{
-                            formName.removeChild(statusMessage);
-                            content.style.display = 'block';
-                        }, 3000);			
+                
                     } else {
                         statusMessage.innerHTML = message.success;
     
@@ -401,10 +398,7 @@ function forms() {
                     if (formName.classList.contains('modal-form')) {
                         content.style.display = 'none';
                         statusMessage.innerHTML = message.failure;
-                        setTimeout(() =>{
-                            formName.removeChild(statusMessage);
-                            content.style.display = 'block';
-                        }, 3000);
+                        
                     } else {
                         statusMessage.innerHTML = message.failure;
                     }
@@ -424,7 +418,10 @@ function forms() {
         document.body.addEventListener('submit', (event) => {
             event.preventDefault();
             formSend(event.target);
-            console.log(statusMessage);
+            // console.log(statusMessage);
+            setTimeout(() => {  ///очистка статусмесседжа через 3 секунды после отправки формы
+                statusMessage.innerHTML = "";
+            }, 3000);
             
         });
 }
