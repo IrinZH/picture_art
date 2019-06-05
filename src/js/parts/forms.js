@@ -1,5 +1,5 @@
 function forms() {
-     
+
     // валидация инпута телефона, инпутов имя и комментария
     document.body.addEventListener("input", event => {
         if (event.target.getAttribute("type") === "tel") {
@@ -10,14 +10,13 @@ function forms() {
         }
         if (event.target.getAttribute("type") === "email") {
             event.target.value = event.target.value.replace(/[а-яА-Я]/, "");
-        } else {
-            if (event.target.getElementsByClassName("name") || event.target.getElementsByTagName("textarea") || (event.target.getElementsByClassName("input-text"))) {
-                event.target.value = event.target.value.replace(/[a-zA-Z]/, ""); //запрет латинских букв
-            }
         }
-
+            
+        if  (event.target.classList.contains("cyrillic")) {
+            // console.log('запрет латинских букв');
+            event.target.value = event.target.value.replace(/[a-zA-Z]/, ""); //запрет латинских букв
+        }
     });
-
     let message = {
             loadind: 'Загрузка...',
             success: 'Спасибо, скоро мы свяжемся с Вами!',
@@ -88,8 +87,11 @@ function forms() {
             setTimeout(() => {  ///очистка статусмесседжа через 3 секунды после отправки формы
                 statusMessage.innerHTML = "";
             }, 3000);
-            
+            let price = document.querySelector('.calc-price');
+            price.innerHTML = 'Для расчета нужно выбрать размер картины и материал картины';
         });
+
+        
 }
 
 
