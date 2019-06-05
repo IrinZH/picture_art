@@ -22,7 +22,7 @@ window.addEventListener('DOMContentLoaded', () => {
   modal();
   slider1();
   slider2();
-  
+
 	
 });
 

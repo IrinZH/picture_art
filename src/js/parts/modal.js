@@ -70,7 +70,7 @@ function modal() {
             dif = scrollHeight - b;
 
         if (dif < 800 && activeBtn == false) {
-            console.log(activeBtn);
+            // console.log(activeBtn);
             bindModal(gift, 'block', 'hidden');
             giftBtn.style.display = 'none';
             // console.log('как то так');
@@ -83,7 +83,7 @@ function modal() {
         if (activeStatus == false) {
             bindModal(popupConsultation,'block', 'hidden');
         } else {
-            console.log('...');
+            // console.log('...');
         }
     }, 60000);
 
